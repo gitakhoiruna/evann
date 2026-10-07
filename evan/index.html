@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Love</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        creamBg: '#FAF7F2',
+                        charcoalText: '#2C2C2A',
+                        mutedText: '#706F6C',
+                        terracotta: {
+                            DEFAULT: '#C47361',
+                            hover: '#B06150',
+                            light: '#FBF2EF',
+                            border: '#F2DCD5',
+                        },
+                        cardBg: '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FAF7F2;
+            color: #2C2C2A;
+            font-family: 'Poppins', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .subtle-shadow {
+            box-shadow: 0 10px 30px -10px rgba(44, 44, 42, 0.05), 0 4px 12px -2px rgba(44, 44, 42, 0.03);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px -12px rgba(196, 115, 97, 0.15);
+        }
+
+        /* Candle Aesthetics */
+        .candle-stick {
+            background: linear-gradient(to right, #EFECE6, #FFFFFF, #E2DFD7);
+        }
+
+        .candle-flame {
+            background: radial-gradient(ellipse at bottom, #FFFFFF 10%, #F59E0B 45%, #C47361 90%);
+            border-radius: 50% 50% 35% 35%;
+            box-shadow: 0 0 16px rgba(196, 115, 97, 0.5), 0 0 28px rgba(245, 158, 11, 0.35);
+            animation: gentleFlicker 2s infinite ease-in-out;
+            transform-origin: center bottom;
+        }
+
+        @keyframes gentleFlicker {
+            0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; }
+            50% { transform: scale(1.05) rotate(1deg); opacity: 1; }
+        }
+
+        .smoke-particle {
+            animation: riseAndFade 1.8s forwards ease-out;
+        }
+
+        @keyframes riseAndFade {
+            0% { opacity: 0.6; transform: translateY(0) scale(0.6); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.8); filter: blur(3px); }
+        }
+
+        /* Floating Background Canvas */
+        #particle-canvas {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 40;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E2DFD7;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #C47361;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-terracotta-light selection:text-terracotta">
+
+    <!-- Floating Canvas for Blow Effect -->
+    <canvas id="particle-canvas"></canvas>
+
+    <main class="max-w-2xl mx-auto px-4 pt-16 pb-20 space-y-16 w-full">
+
+        <!-- Hero Section -->
+        <section class="text-center space-y-6">
+            <div class="space-y-2">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-charcoalText tracking-tight leading-tight">
+                    Happy Birthday
+                </h1>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-charcoalText tracking-tight leading-tight">
+                    Evan Octarizara Ramadhan
+                </h2>
+
+                <p class="text-xs sm:text-sm text-mutedText tracking-widest uppercase font-medium pt-2">Wishing you the happiest day</p>
+            </div>
+
+            <!-- Hero Image Container -->
+            <div class="relative max-w-md mx-auto rounded-2xl overflow-hidden bg-cardBg p-2.5 border border-stone-200/80 subtle-shadow hover-lift group">
+                <div class="relative aspect-[4/3] rounded-xl overflow-hidden bg-creamBg">
+                    <!-- Foto utama diposisikan agak ke bawah (object-[center_24%]) -->
+                    <img id="hero-image" src="gitaevan.jpeg" alt="Evan & Gita" class="w-full h-full object-cover object-[center_24%] transition duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1000&q=80'">
+                </div>
+            </div>
+        </section>
+
+        <!-- Candle / Wish Section -->
+        <section class="bg-cardBg rounded-2xl p-8 border border-stone-200/80 subtle-shadow text-center space-y-6">
+            <div class="space-y-1">
+                <h2 class="text-2xl font-semibold text-charcoalText">Make a Wish</h2>
+                <p class="text-xs text-mutedText">Pikirkan permohonanmu, lalu tiup lilinnya.</p>
+            </div>
+
+            <div class="py-6 flex flex-col items-center justify-center">
+                <div class="relative flex flex-col items-center cursor-pointer" onclick="blowCandle()" title="Klik untuk tiup lilin">
+                    
+                    <!-- Flame -->
+                    <div id="candle-flame" class="candle-flame w-4 h-7 mb-1"></div>
+                    
+                    <!-- Smoke (Hidden initial state) -->
+                    <div id="candle-smoke" class="hidden absolute -top-6 w-3 h-6">
+                        <div class="w-2.5 h-2.5 bg-stone-300 rounded-full smoke-particle"></div>
+                    </div>
+
+                    <!-- Wick -->
+                    <div class="w-0.5 h-3 bg-stone-700"></div>
+
+                    <!-- Candle Body -->
+                    <div class="candle-stick w-6 h-24 rounded-t-sm border border-stone-200 shadow-sm flex items-end justify-center pb-2">
+                        <div class="w-full h-1 bg-terracotta/20"></div>
+                    </div>
+
+                    <!-- Candle Base -->
+                    <div class="w-12 h-1.5 bg-stone-200 rounded-full mt-0.5 shadow-inner"></div>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center space-y-2">
+                <button id="blow-btn" onclick="blowCandle()" class="px-6 py-2.5 rounded-full bg-terracotta hover:bg-terracotta-hover text-white text-xs font-medium tracking-wide transition-all shadow-md active:scale-95 flex items-center space-x-2">
+                    <i class="fa-solid fa-wind text-xs"></i>
+                    <span id="blow-btn-text">Tiup Lilin 🕯️</span>
+                </button>
+                <p id="wish-subtitle" class="text-[11px] text-mutedText italic">Sentuh lilin atau klik tombol di atas</p>
+            </div>
+        </section>
+
+        <!-- Gallery Section (4 FOTO LANGSUNG DI HTML) -->
+        <section class="space-y-6">
+            <div class="border-b border-stone-200/80 pb-3">
+                
+            </div>
+
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Foto 1 -->
+                <div class="bg-cardBg rounded-xl p-2.5 border border-stone-200/80 subtle-shadow hover-lift space-y-2">
+                    <div class="aspect-[4/3] rounded-lg overflow-hidden bg-creamBg">
+                        <img src="evann.jpeg" alt="Memory 1" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <p class="text-xs text-center text-mutedText italic py-1"></p>
+                </div>
+
+                <!-- Foto 2 -->
+                <div class="bg-cardBg rounded-xl p-2.5 border border-stone-200/80 subtle-shadow hover-lift space-y-2">
+                    <div class="aspect-[4/3] rounded-lg overflow-hidden bg-creamBg">
+                        <img src="gita.jpeg" alt="Memory 2" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <p class="text-xs text-center text-mutedText italic py-1"></p>
+                </div>
+
+                <!-- Foto 3 -->
+                <div class="bg-cardBg rounded-xl p-2.5 border border-stone-200/80 subtle-shadow hover-lift space-y-2">
+                    <div class="aspect-[4/3] rounded-lg overflow-hidden bg-creamBg">
+                        <img src="y.jpeg" alt="Memory 3" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <p class="text-xs text-center text-mutedText italic py-1"></p>
+                </div>
+
+                <!-- Foto 4 -->
+                <div class="bg-cardBg rounded-xl p-2.5 border border-stone-200/80 subtle-shadow hover-lift space-y-2">
+                    <div class="aspect-[4/3] rounded-lg overflow-hidden bg-creamBg">
+                        <img src="ev.jpeg" alt="Memory 4" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=600&q=80'">
+                    </div>
+                    <p class="text-xs text-center text-mutedText italic py-1"></p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Letter Section -->
+        <section class="bg-cardBg rounded-2xl p-6 sm:p-8 border border-stone-200/80 subtle-shadow space-y-5">
+            <div class="border-b border-stone-100 pb-3">
+                <span class="text-xs text-terracotta font-medium tracking-widest uppercase"></span>
+            </div>
+
+            <div class="space-y-4 text-charcoalText leading-relaxed">
+                <div class="text-xl font-medium text-terracotta italic">
+                    Sayang,
+                </div>
+                <p class="text-sm sm:text-base text-charcoalText/90 whitespace-pre-line font-normal">
+                    Selamat ulang tahun ya, semoga di usia kamu yang baru ini kamu bisa jadi pribadi yang lebih baik kedepannya, di lancarkan kuliah nya apa lagi sekarang udah semester akhir ya ga kerasa semoga di permudah ngerjain skripsi nya, di kasih kelancaran dan bisa lulus tepat waktu amin,
+                    Makasih ya udah selalu sabar dan nemenin aku sejauh ini, semoga hubungan kita lebih baik ya kedepannya makin dewasa, jangan sampai berantem terus, dan semoga kita bisa terus bareng bareng dari tahun ke tahun berikutnya.
+                    Apapun yang kamu perjuangkan, aku bakal selalu ada di samping kamu.
+                    Aku selalu bangga punya kamu sayang, LOVE UU SAYANGKUU🤍
+                </p>
+                <div class="pt-4 border-t border-stone-100 text-right">
+                    <p class="text-base font-semibold text-terracotta italic">Gita</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-xs text-mutedText border-t border-stone-200/60 mt-12 space-y-1">
+        <p>Made with love for <span class="font-medium text-charcoalText">Evan Octarizara Ramadhan</span></p>
+        <p class="text-[10px] text-stone-400"></p>
+    </footer>
+
+    <script>
+        let isBlown = false;
+
+        function blowCandle() {
+            if (isBlown) return;
+            isBlown = true;
+
+            const flame = document.getElementById('candle-flame');
+            const smoke = document.getElementById('candle-smoke');
+            const btnText = document.getElementById('blow-btn-text');
+            const subtitle = document.getElementById('wish-subtitle');
+
+            flame.classList.add('hidden');
+            smoke.classList.remove('hidden');
+
+            btnText.textContent = "Make a Wish ✨";
+            subtitle.textContent = "Permohonanmu sudah terkirim. Semoga selalu bahagia! 🤍";
+
+            triggerSoftParticles();
+        }
+
+        /* Particles Animation */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class WarmParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 20;
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.opacity = Math.random() * 0.7 + 0.3;
+                this.symbol = Math.random() > 0.4 ? '✨' : '🤍';
+            }
+            update() {
+                this.y -= this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.004;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, this.opacity);
+                ctx.font = `${this.size}px Poppins, sans-serif`;
+                ctx.fillText(this.symbol, this.x, this.y);
+                ctx.restore();
+            }
+        }
+
+        function triggerSoftParticles() {
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    particles.push(new WarmParticle());
+                }, i * 100);
+            }
+            animateParticles();
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                if (p.opacity <= 0) particles.splice(index, 1);
+            });
+            if (particles.length > 0) {
+                requestAnimationFrame(animateParticles);
+            }
+        }
+    </script>
+</body>
+</html>
